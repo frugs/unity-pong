@@ -1,3 +1,6 @@
 obj/
 Temp/
 Library/
+*.meta
+*.sln
+*.csproj
