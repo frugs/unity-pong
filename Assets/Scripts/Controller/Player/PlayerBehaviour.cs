@@ -1,13 +1,12 @@
-﻿using UnityEngine;
+﻿using Pong.Physics.Movement;
 using System;
-using System.Collections;
-using Pong.Physics.Movement;
+using UnityEngine;
+using Pong.Physics.Collision;
 
 namespace Pong.Controller.Player
 {
-    public class Player : MonoBehaviour
+    public class PlayerBehaviour : CollidingBehaviour<PlayerBehaviour>
     {
-    
         public KeyCode MoveUpKey;
         public KeyCode MoveDownKey;
     
@@ -27,11 +26,10 @@ namespace Pong.Controller.Player
     
             MovementController.ControlMovement(Movable);
         }
-        
-        // Update is called once per frame
-        void Update()
-        {
 
+        protected override PlayerBehaviour GetCollidingInstance()
+        {
+            return this;
         }
     }
 }

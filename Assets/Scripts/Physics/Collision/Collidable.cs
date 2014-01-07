@@ -1,8 +1,12 @@
+using UnityEngine;
+
 namespace Pong.Physics.Collision
 {
-    public interface Collidable
+    public abstract class Collidable<T> : MonoBehaviour
     {
-        void CollideWith(Collidable collidable);
+        public abstract void StartCollision(T collidingBehaviour);
+        public abstract void UpdateCollision(T collidingBehaviour);
+        public abstract void EndCollision(T collidingBehaviour);
     }
 }
 
