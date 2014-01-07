@@ -5,6 +5,7 @@ using Pong.Physics.Collision;
 
 namespace Pong.Controller.Player
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerBehaviour : CollidingBehaviour<PlayerBehaviour>
     {
         public KeyCode MoveUpKey;
@@ -17,10 +18,6 @@ namespace Pong.Controller.Player
         // needn't know what it's composed of.
         void Start()
         {
-            if (rigidbody2D == null) {
-                throw new InvalidOperationException("Player has no rigid body attached");
-            }
-    
             Movable = new PlayerMovable(rigidbody2D);
             MovementController = new PlayerInputMovementController(MoveUpKey, MoveDownKey);
     
