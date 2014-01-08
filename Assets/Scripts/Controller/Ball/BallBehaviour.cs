@@ -13,5 +13,4 @@ namespace Pong.Controller.Ball
             return this;
         }
     }
-
 }
