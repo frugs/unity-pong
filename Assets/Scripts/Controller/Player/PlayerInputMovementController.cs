@@ -1,21 +1,17 @@
 using UnityEngine;
 using Pong.Input;
-using Pong.Physics.Movement;
 
 namespace Pong.Controller.Player
 {
-    public class PlayerInputMovementController : MovementController
+    [RequireComponent(typeof(PlayerMovable))]
+    public class PlayerInputMovementController : MonoBehaviour
     {
-        private KeyCode MoveUpKey;
-        private KeyCode MoveDownKey;
+        public KeyCode MoveUpKey;
+        public KeyCode MoveDownKey;
+
+        public PlayerMovable movable;
     
-        public PlayerInputMovementController(KeyCode moveUpKey, KeyCode moveDownKey)
-        {
-            this.MoveUpKey = moveUpKey;
-            this.MoveDownKey = moveDownKey;
-        }
-    
-        public void ControlMovement(Movable movable)
+        public void Start()
         {
             var inputHandlers = InputHandlers.GetInputHandlers();
     
