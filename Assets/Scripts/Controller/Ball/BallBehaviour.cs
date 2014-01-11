@@ -20,5 +20,10 @@ namespace Pong.Controller.Ball
         {
             return this;
         }
+
+        public override CollidableDictionary GetCollidableDictionary()
+        {
+            return Collidables;
+        }
     }
 }

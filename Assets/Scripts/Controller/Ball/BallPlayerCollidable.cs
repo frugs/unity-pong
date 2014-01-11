@@ -15,7 +15,7 @@ namespace Pong.Controller.Ball
             Rigidbody2D = rigidbody2D;
         }
 
-        public void EndCollision(Entity.Player collidingBehaviour)
+        public override void EndCollision(Entity.Player collidingBehaviour)
         {
             Rigidbody2D.velocity = Rigidbody2D.velocity + collidingBehaviour.GetVelocity();
         }

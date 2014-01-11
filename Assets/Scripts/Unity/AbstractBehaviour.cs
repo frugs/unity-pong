@@ -42,11 +42,6 @@ namespace Pong.Unity
             }
         }
 
-        public override CollidableDictionary GetCollidableDictionary()
-        {
-            return new CollidableDictionary();
-        }
-        
         private IEnumerable<Collidable<T>> extractCollidables(Collision2D collision)
         {
             GenericAbstractBehaviour genericAbstractBehaviour = collision.gameObject.GetComponent<GenericAbstractBehaviour>();

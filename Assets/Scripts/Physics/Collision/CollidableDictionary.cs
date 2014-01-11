@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Pong.Physics.Collision
 {
@@ -14,7 +15,13 @@ namespace Pong.Physics.Collision
 
         public IEnumerable<Collidable<T>> GetCollisionHandlers<T>()
         {
-            return new CollidableEnumerable<T>(UntypedCollidableDictionary[typeof(T)]);
+            List<object> collidables;
+
+            if (!UntypedCollidableDictionary.TryGetValue(typeof(T), out collidables))
+            {
+                collidables = new List<object>();
+            }
+            return new CollidableEnumerable<T>(collidables);
         }
 
         public void Add<T>(Collidable<T> collidable)
@@ -24,6 +31,7 @@ namespace Pong.Physics.Collision
             if (!UntypedCollidableDictionary.TryGetValue(typeof(T), out collidables))
             {
                 collidables = new List<object>();
+                UntypedCollidableDictionary.Add(typeof(T), collidables);
             }
             collidables.Add(collidable);
         }

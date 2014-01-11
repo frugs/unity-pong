@@ -6,17 +6,17 @@ namespace Pong.Controller.Player
 {
     class PlayerBallCollidable : AbstractCollidable<BallBehaviour>
     {
-        public void StartCollision(BallBehaviour collidingBehaviour)
+        public override void StartCollision(BallBehaviour collidingBehaviour)
         {
             Debug.Log("Started Collision");
         }
 
-        public void UpdateCollision(BallBehaviour collidingBehaviour)
+        public override void UpdateCollision(BallBehaviour collidingBehaviour)
         {
             Debug.Log("persisting collision");
         }
 
-        public void EndCollision(BallBehaviour collidingBehaviour)
+        public override void EndCollision(BallBehaviour collidingBehaviour)
         {
             Debug.Log("finished collison");
         }
