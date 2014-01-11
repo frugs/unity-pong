@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Text;
 
-namespace Pong.Scripts.Game
+namespace Pong.Game
 {
     class GameManager : MonoBehaviour
     {
