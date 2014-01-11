@@ -3,31 +3,44 @@ using Pong.Input;
 
 namespace Pong.Controller.Player
 {
-    [RequireComponent(typeof(PlayerMovable))]
-    public class PlayerInputMovementController : MonoBehaviour
+    public class PlayerInputMovementController
     {
-        public KeyCode MoveUpKey;
-        public KeyCode MoveDownKey;
+        private readonly PlayerMovable Movable;
 
-        public PlayerMovable movable;
+        public PlayerInputMovementController(PlayerMovable movable)
+        {
+            Movable = movable;
+        }
     
-        public void Start()
+        public void RegisterInputs()
         {
             var inputHandlers = InputHandlers.GetInputHandlers();
     
-            inputHandlers.InputHandlerFor(MoveUpKey).RegisterAction(
+            inputHandlers.InputHandlerFor(GetMoveUpKey()).RegisterAction(
                 () => {
-                movable.MoveUp(); },
+                Movable.MoveUp(); },
                 () => {
-                movable.Stop(); }
+                Movable.Stop(); }
             );
     
-            inputHandlers.InputHandlerFor(MoveDownKey).RegisterAction(
+            inputHandlers.InputHandlerFor(GetMoveDownKey()).RegisterAction(
                 () => {
-                movable.MoveDown(); },
+                Movable.MoveDown(); },
                 () => {
-                movable.Stop(); }
+                Movable.Stop(); }
             );
+        }
+
+        // Grab it from a static call to Config.Player.InputConfig or something, hardcoding it for now
+        private KeyCode GetMoveDownKey()
+        {
+            return KeyCode.S;
+        }
+
+        // Grab it from a static call to Config.Player.InputConfig or something, hardcoding it for now
+        private KeyCode GetMoveUpKey()
+        {
+            return KeyCode.W;
         }
     }
 }

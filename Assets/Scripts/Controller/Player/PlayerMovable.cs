@@ -2,10 +2,16 @@ using UnityEngine;
 
 namespace Pong.Controller.Player
 {
-    [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerMovable : MonoBehaviour
+    public class PlayerMovable
     {
         const float speed = 10f;
+
+        private readonly Rigidbody2D rigidbody2D;
+
+        public PlayerMovable(Rigidbody2D rigidbody2D)
+        {
+            this.rigidbody2D = rigidbody2D;
+        }
     
         public void MoveUp()
         {
