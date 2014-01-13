@@ -1,6 +1,6 @@
 ﻿namespace Pong.Physics.Collision
 {
-    class AbstractCollidable<T> : Collidable<T>
+    class AbstractCollisionHandler<T> : ICollisionHandler<T>
     {
         public virtual void StartCollision(T collidingBehaviour)
         {

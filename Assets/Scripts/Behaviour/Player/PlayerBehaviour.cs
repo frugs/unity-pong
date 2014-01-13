@@ -1,37 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Pong;
+using Pong.Entity;
 using Pong.Physics.Collision;
 using Pong.Unity;
-using Pong.Controller.Ball;
+using Pong.Behaviour.Ball;
 
-namespace Pong.Controller.Player
+namespace Pong.Behaviour.Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerBehaviour : AbstractBehaviour<Entity.Player>, Entity.Player
+    public class PlayerBehaviour : AbstractBehaviour<IPlayer>, IPlayer
     {
         private PlayerMovable Movable;
         private PlayerInputMovementController MovementController;
 
-        private CollidableDictionary Collidables = new CollidableDictionary();
+        private PlayerStateManager StateManager;
 
-
+        // TODO: This is a bit messy, encapsulate this in a factory.
+        // TODO: StateManager could also use a builder class
         public override void Start()
         {
             Movable = new PlayerMovable(rigidbody2D);
             MovementController = new PlayerInputMovementController(Movable);
-            Collidables.Add(new PlayerBallCollidable());
-            
             MovementController.RegisterInputs();
+
+            IPlayerState idleState = new PlayerIdleState();
+            StateManager = new PlayerStateManager(idleState);
+            idleState.GetCollisionHandlers().Add(new PlayerBallCollisionHandler());
         }
 
-        public override CollidableDictionary GetCollidableDictionary()
+        public override IStateManager GetStateManager()
         {
-            return Collidables;
+            return StateManager;
         }
 
-        protected override Entity.Player GetCollidingInstance()
+        protected override IPlayer GetCollidingInstance()
         {
             return this;
         }

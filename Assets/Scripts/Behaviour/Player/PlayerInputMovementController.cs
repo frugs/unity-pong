@@ -1,7 +1,7 @@
 using UnityEngine;
 using Pong.Input;
 
-namespace Pong.Controller.Player
+namespace Pong.Behaviour.Player
 {
     public class PlayerInputMovementController
     {

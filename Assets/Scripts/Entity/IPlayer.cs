@@ -2,7 +2,7 @@
 
 namespace Pong.Entity
 {
-    public interface Player
+    public interface IPlayer
     {
         Vector2 GetVelocity();
     }

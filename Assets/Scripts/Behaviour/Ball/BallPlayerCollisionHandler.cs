@@ -3,19 +3,19 @@ using UnityEngine;
 using Pong.Physics.Collision;
 using Pong.Entity;
 
-namespace Pong.Controller.Ball
+namespace Pong.Behaviour.Ball
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    class BallPlayerCollidable : AbstractCollidable<Entity.Player>
+    class BallPlayerCollisionHandler : AbstractCollisionHandler<Entity.IPlayer>
     {
         private readonly Rigidbody2D Rigidbody2D;
 
-        public BallPlayerCollidable(Rigidbody2D rigidbody2D)
+        public BallPlayerCollisionHandler(Rigidbody2D rigidbody2D)
         {
             Rigidbody2D = rigidbody2D;
         }
 
-        public override void EndCollision(Entity.Player collidingBehaviour)
+        public override void EndCollision(Entity.IPlayer collidingBehaviour)
         {
             Rigidbody2D.velocity = Rigidbody2D.velocity + collidingBehaviour.GetVelocity();
         }

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using Pong.Physics.Collision;
-using Pong.Controller.Ball;
+using Pong.Behaviour.Ball;
 
-namespace Pong.Controller.Player
+namespace Pong.Behaviour.Player
 {
-    class PlayerBallCollidable : AbstractCollidable<BallBehaviour>
+    class PlayerBallCollisionHandler : AbstractCollisionHandler<BallBehaviour>
     {
         public override void StartCollision(BallBehaviour collidingBehaviour)
         {

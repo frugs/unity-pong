@@ -1,6 +1,6 @@
 namespace Pong.Physics.Collision
 {
-    public interface Collidable<T>
+    public interface ICollisionHandler<T>
     {
         void StartCollision(T collidingBehaviour);
 

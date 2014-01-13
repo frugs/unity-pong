@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Pong.Controller.Player
+namespace Pong.Behaviour.Player
 {
     public class PlayerMovable
     {

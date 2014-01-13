@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Pong.Entity;
 using Pong.Physics.Collision;
+using Pong.Behaviour;
 
 namespace Pong.Unity
 {
@@ -13,9 +15,9 @@ namespace Pong.Unity
 
         public void OnCollisionEnter2D(Collision2D collision)
         {
-            IEnumerable<Collidable<T>> collidables = extractCollidables(collision);
+            IEnumerable<ICollisionHandler<T>> collidables = extractCollidables(collision);
 
-            foreach (Collidable<T> collidable in collidables)
+            foreach (ICollisionHandler<T> collidable in collidables)
             {
                 collidable.StartCollision(GetCollidingInstance());
             }
@@ -23,10 +25,10 @@ namespace Pong.Unity
 
         public void OnCollisionStay2D(Collision2D collision)
         {
-            IEnumerable<Collidable<T>> collidables = extractCollidables(collision);
+            IEnumerable<ICollisionHandler<T>> collidables = extractCollidables(collision);
 
 
-            foreach (Collidable<T> collidable in collidables)
+            foreach (ICollisionHandler<T> collidable in collidables)
             {
                 collidable.UpdateCollision(GetCollidingInstance());
             }
@@ -34,25 +36,25 @@ namespace Pong.Unity
 
         public void OnCollisionExit2D(Collision2D collision)
         {
-            IEnumerable<Collidable<T>> collidables = extractCollidables(collision);
+            IEnumerable<ICollisionHandler<T>> collidables = extractCollidables(collision);
 
-            foreach (Collidable<T> collidable in collidables)
+            foreach (ICollisionHandler<T> collidable in collidables)
             {
                 collidable.EndCollision(GetCollidingInstance());
             }
         }
 
-        private IEnumerable<Collidable<T>> extractCollidables(Collision2D collision)
+        private IEnumerable<ICollisionHandler<T>> extractCollidables(Collision2D collision)
         {
             GenericAbstractBehaviour genericAbstractBehaviour = collision.gameObject.GetComponent<GenericAbstractBehaviour>();
             return genericAbstractBehaviour != null
-                ? genericAbstractBehaviour.GetCollidableDictionary().GetCollisionHandlers<T>()
-                : new List<Collidable<T>>();
+                ? genericAbstractBehaviour.GetStateManager().GetActiveCollisionHandlers().ForType<T>()
+                : new List<ICollisionHandler<T>>();
         }
     }
 
     public abstract class GenericAbstractBehaviour : MonoBehaviour
     {
-        abstract public CollidableDictionary GetCollidableDictionary();
+        abstract public IStateManager GetStateManager();
     }
 }
