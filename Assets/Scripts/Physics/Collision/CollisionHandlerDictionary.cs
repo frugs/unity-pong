@@ -1,12 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
 
 namespace Pong.Physics.Collision
 {
-    // This class is a bit awful, I cannot for the life of me figure out how to make it more concise in C#
     // Would be nice if we could have compiler-checked type safety on this as well, at the moment it relies
     // on the implemenation of the logic being type-safe.
     //
@@ -23,7 +20,7 @@ namespace Pong.Physics.Collision
             {
                 collisionHandlers = new List<object>();
             }
-            return new CollisionHandlerEnumerable<T>(collisionHandlers);
+            return CastListTo<ICollisionHandler<T>>(collisionHandlers);
         }
 
         public void Add<T>(ICollisionHandler<T> collisionHandler)
@@ -38,59 +35,14 @@ namespace Pong.Physics.Collision
             collisionHandlers.Add(collisionHandler);
         }
 
-        private class CollisionHandlerEnumerable<C> : IEnumerable<ICollisionHandler<C>>
+        private static IList<T> CastListTo<T>(IList<object> untypedList)
         {
-            private readonly IEnumerable<object> Enumerable;
+            IList<T> list = new List<T>();
 
-            public CollisionHandlerEnumerable(IEnumerable<object> enumerable)
-            {
-                Enumerable = enumerable;
+            foreach (object entry in untypedList) {
+                list.Add((T) entry);
             }
-
-            public IEnumerator<ICollisionHandler<C>> GetEnumerator()
-            {
-                return new CollisionHandlerEnumerator<C>(Enumerable.GetEnumerator());
-            }
-
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        private class CollisionHandlerEnumerator<C> : IEnumerator<ICollisionHandler<C>>
-        {
-            private readonly IEnumerator<object> Enumerator;
-
-            public CollisionHandlerEnumerator(IEnumerator<object> enumerator)
-            {
-                Enumerator = enumerator;
-            }
-
-            public ICollisionHandler<C> Current
-            {
-                get { return (ICollisionHandler<C>)Enumerator.Current; }
-            }
-
-            public void Dispose()
-            {
-                Enumerator.Dispose();
-            }
-
-            object System.Collections.IEnumerator.Current
-            {
-                get { return Enumerator.Current; }
-            }
-
-            public bool MoveNext()
-            {
-                return Enumerator.MoveNext();
-            }
-
-            public void Reset()
-            {
-                Enumerator.Reset();
-            }
+            return list;
         }
     }
 }

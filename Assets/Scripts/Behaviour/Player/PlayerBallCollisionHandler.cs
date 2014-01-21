@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
 using Pong.Physics.Collision;
-using Pong.Behaviour.Ball;
+using Pong.Entity;
 
 namespace Pong.Behaviour.Player
 {
-    class PlayerBallCollisionHandler : AbstractCollisionHandler<BallBehaviour>
+    class PlayerBallCollisionHandler : AbstractCollisionHandler<IBall>
     {
-        public override void StartCollision(BallBehaviour collidingBehaviour)
+        public override void StartCollision(IBall collidingBehaviour)
         {
             Debug.Log("Started Collision");
         }
 
-        public override void UpdateCollision(BallBehaviour collidingBehaviour)
+        public override void UpdateCollision(IBall collidingBehaviour)
         {
             Debug.Log("persisting collision");
         }
 
-        public override void EndCollision(BallBehaviour collidingBehaviour)
+        public override void EndCollision(IBall collidingBehaviour)
         {
             Debug.Log("finished collison");
         }
