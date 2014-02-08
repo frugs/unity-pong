@@ -1,4 +1,4 @@
-namespace Pong.Physics.Collision
+namespace Assets.Scripts.Physics.Collision
 {
     public interface ICollisionHandler<T>
     {

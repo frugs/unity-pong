@@ -1,9 +1,7 @@
 obj/
 Temp/
 Library/
-*.meta
 *.sln
 *.csproj
 *.suo
 *.userprefs
-*.unityproj

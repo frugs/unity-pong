@@ -1,12 +1,10 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Physics.Collision;
 using System.Collections.Generic;
-using Pong.Entity;
-using Pong.Physics.Collision;
-using Pong.Behaviour;
+using UnityEngine;
 
-namespace Pong.Unity
+namespace Assets.Scripts.Unity
 {
-    public abstract class AbstractBehaviour<T> : GenericAbstractBehaviour
+    public abstract class AbstractBehaviour<T> : AbstractBehaviour
     {
         virtual public void Start() { }
         virtual public void Update() { }
@@ -46,15 +44,15 @@ namespace Pong.Unity
 
         private IEnumerable<ICollisionHandler<T>> extractCollidables(Collision2D collision)
         {
-            GenericAbstractBehaviour genericAbstractBehaviour = collision.gameObject.GetComponent<GenericAbstractBehaviour>();
+            AbstractBehaviour genericAbstractBehaviour = collision.gameObject.GetComponent<AbstractBehaviour>();
             return genericAbstractBehaviour != null
-                ? genericAbstractBehaviour.GetStateManager().GetActiveCollisionHandlers().ForType<T>()
+                ? genericAbstractBehaviour.GetActiveCollisionHandlers().ForType<T>()
                 : new List<ICollisionHandler<T>>();
         }
     }
 
-    public abstract class GenericAbstractBehaviour : MonoBehaviour
+    public abstract class AbstractBehaviour : MonoBehaviour
     {
-        abstract public IStateManager GetStateManager();
+        abstract public CollisionHandlers GetActiveCollisionHandlers();
     }
 }
